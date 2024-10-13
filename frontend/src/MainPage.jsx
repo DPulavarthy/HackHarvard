@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import garbageData from './data.json'
+import axios from 'axios'
+import { MapPin } from 'lucide-react'
 
 export default function MainPage() {
   const mapRef = useRef(null)
@@ -12,7 +13,7 @@ export default function MainPage() {
 
   const [routeStarted, setRouteStarted] = useState(false)
   const [current, setCurrent] = useState(null)
-  const [upcoming, setUpcoming] = useState(garbageData)
+  const [upcoming, setUpcoming] = useState([])
   const [completed, setCompleted] = useState([])
   const [completedRoute, setCompletedRoute] = useState([])
   const [isLastPickup, setIsLastPickup] = useState(false)
@@ -20,6 +21,8 @@ export default function MainPage() {
   const [estimatedTime, setEstimatedTime] = useState(null)
   const [totalEstimatedTime, setTotalEstimatedTime] = useState(0)
   const [initialTotalEstimatedTime, setInitialTotalEstimatedTime] = useState(null)
+  const [routeData, setRouteData] = useState(null)
+  const [error, setError] = useState(null)
 
   const startingLocation = {
     id: 0,
@@ -32,6 +35,30 @@ export default function MainPage() {
   }
 
   useEffect(() => {
+    const fetchRouteData = async () => {
+      try {
+        console.log('Fetching route data...')
+        const response = await axios.get('http://192.168.124.69:1123/routeData')
+        console.log('Route data received:', response.data)
+        setRouteData(response.data)
+        if (response.data && response.data.route && response.data.trashData) {
+          const orderedTrashData = response.data.route.map(id => 
+            response.data.trashData.find(can => can.id === id)
+          )
+          console.log('Ordered trash data:', orderedTrashData)
+          setUpcoming(orderedTrashData)
+        } else {
+          console.error('Invalid data structure received:', response.data)
+          setError('Invalid data structure received from the server')
+        }
+      } catch (error) {
+        console.error('Error fetching route data:', error)
+        setError(`Error fetching route data: ${error.message}`)
+      }
+    }
+
+    fetchRouteData()
+
     const googleMapScript = document.createElement('script')
     googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA9wdextBbNhCbxfZ5qpObUUe9qX7Kcl2o&libraries=places`
     googleMapScript.async = true
@@ -92,39 +119,6 @@ export default function MainPage() {
         },
       })
       setDirectionsRenderer(renderer)
-
-      // Add markers for all garbage cans and starting location
-      const allMarkers = [
-        new window.google.maps.Marker({
-          position: { lat: startingLocation.latitude, lng: startingLocation.longitude },
-          map: map,
-          icon: {
-            url: '/startingPin.png',
-            scaledSize: new window.google.maps.Size(36, 36),
-            anchor: new window.google.maps.Point(18, 36),
-          },
-          title: "Starting Location",
-        }),
-        ...garbageData.map(can => new window.google.maps.Marker({
-          position: { lat: can.latitude, lng: can.longitude },
-          map: map,
-          icon: {
-            url: '/trashCanPin.png',
-            scaledSize: new window.google.maps.Size(32, 32),
-          },
-          title: `Garbage Can ${can.id}`,
-        }))
-      ]
-
-      setMarkers(allMarkers)
-
-      // Fit the map to show all markers
-      const bounds = new window.google.maps.LatLngBounds()
-      allMarkers.forEach(marker => bounds.extend(marker.getPosition()))
-      map.fitBounds(bounds)
-
-      // Calculate initial total estimated time
-      calculateInitialTotalEstimatedTime()
     })
 
     return () => {
@@ -132,12 +126,59 @@ export default function MainPage() {
     }
   }, [])
 
+  useEffect(() => {
+    if (routeData && mapInstance) {
+      addMarkersToMap()
+      calculateInitialTotalEstimatedTime()
+    }
+  }, [routeData, mapInstance])
+
+  const addMarkersToMap = () => {
+    if (!mapInstance || !routeData) return
+
+    console.log('Adding all markers to map...');
+    const allMarkers = [
+      new window.google.maps.Marker({
+        position: { lat: startingLocation.latitude, lng: startingLocation.longitude },
+        map: mapInstance,
+        icon: {
+          url: '/startingPin.png',
+          scaledSize: new window.google.maps.Size(36, 36),
+          anchor: new window.google.maps.Point(18, 36),
+        },
+        title: "Starting Location",
+      }),
+      ...routeData.trashData.map(can => new window.google.maps.Marker({
+        position: { lat: can.latitude, lng: can.longitude },
+        map: mapInstance,
+        icon: {
+          url: '/trashCanPin.png',
+          scaledSize: new window.google.maps.Size(32, 32),
+        },
+        title: `Garbage Can ${can.id}`,
+      }))
+    ];
+
+    setMarkers(allMarkers);
+
+    // Fit the map to show all markers
+    const bounds = new window.google.maps.LatLngBounds();
+    allMarkers.forEach(marker => bounds.extend(marker.getPosition()));
+    mapInstance.fitBounds(bounds);
+  }
+
   const calculateInitialTotalEstimatedTime = () => {
+    if (!routeData || !mapInstance) return
+
+    console.log('Calculating initial total estimated time...')
     const directionsService = new window.google.maps.DirectionsService()
-    const waypoints = garbageData.map(can => ({
-      location: new window.google.maps.LatLng(can.latitude, can.longitude),
-      stopover: true
-    }))
+    const waypoints = routeData.route.map(id => {
+      const can = routeData.trashData.find(can => can.id === id)
+      return {
+        location: new window.google.maps.LatLng(can.latitude, can.longitude),
+        stopover: true
+      }
+    })
 
     directionsService.route(
       {
@@ -158,6 +199,10 @@ export default function MainPage() {
           const seconds = totalTime % 60
           const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
           setInitialTotalEstimatedTime(formattedTime)
+          console.log('Initial total estimated time calculated:', formattedTime)
+        } else {
+          console.error('Error calculating initial total estimated time:', status)
+          setError(`Error calculating route: ${status}`)
         }
       }
     )
@@ -168,17 +213,23 @@ export default function MainPage() {
   }
 
   const handleStartRoute = () => {
-    setRouteStarted(true)
-    setCurrent(upcoming[0])
-    setUpcoming(upcoming.slice(1))
-    setCompletedRoute([startingLocation])
-    updateMarkers(startingLocation, upcoming[0])
-    drawRoute(startingLocation, upcoming[0])
-  }
+    setRouteStarted(true);
+    setCurrent(upcoming[0]);
+    setUpcoming(upcoming.slice(1));
+    setCompletedRoute([startingLocation]);
+    
+    // Clear all existing markers
+    markers.forEach(marker => marker.setMap(null));
+    setMarkers([]);
+
+    // Add markers for starting location and first stop
+    updateMarkers(startingLocation, upcoming[0]);
+    drawRoute(startingLocation, upcoming[0]);
+  };
 
   const updateMarkers = (start, end) => {
     // Remove all existing markers from the map
-    markers.forEach(marker => marker.setMap(null))
+    markers.forEach(marker => marker.setMap(null));
 
     // Add marker for start location
     const startMarker = new window.google.maps.Marker({
@@ -190,7 +241,7 @@ export default function MainPage() {
         anchor: new window.google.maps.Point(18, 36),
       },
       title: "Current Location",
-    })
+    });
 
     // Add marker for end location
     const endMarker = new window.google.maps.Marker({
@@ -201,16 +252,16 @@ export default function MainPage() {
         scaledSize: new window.google.maps.Size(32, 32),
       },
       title: end === startingLocation ? "Ending Location" : `Garbage Can ${end.id}`,
-    })
+    });
 
-    setMarkers([startMarker, endMarker])
+    setMarkers([startMarker, endMarker]);
 
     // Fit the map to show both markers
-    const bounds = new window.google.maps.LatLngBounds()
-    bounds.extend(startMarker.getPosition())
-    bounds.extend(endMarker.getPosition())
-    mapInstance.fitBounds(bounds)
-  }
+    const bounds = new window.google.maps.LatLngBounds();
+    bounds.extend(startMarker.getPosition());
+    bounds.extend(endMarker.getPosition());
+    mapInstance.fitBounds(bounds);
+  };
 
   const drawRoute = (start, end) => {
     const directionsService = new window.google.maps.DirectionsService()
@@ -230,6 +281,9 @@ export default function MainPage() {
             setEstimatedTime(route.legs[0].duration.text)
             setTotalEstimatedTime(prevTotal => prevTotal + estimatedTimeValue)
           }
+        } else {
+          console.error('Error drawing route:', status)
+          setError(`Error drawing route: ${status}`)
         }
       }
     )
@@ -295,23 +349,56 @@ export default function MainPage() {
       </header>
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="flex flex-col h-full">
-          <div className="bg-green-800 p-4 rounded-lg shadow-md mb-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-xl font-semibold text-green-300 mb-2">User Information</h2>
-                <p className="text-green-100">Name: {name || 'N/A'} | User ID: {userId || 'N/A'} | Truck ID: {truckId || 'N/A'}</p>
-              </div>
-              <div className="text-right">
-                <p className="text-green-100">Location: Cambridge, Massachusetts</p>
-                <p className="text-green-100">Garbage Service: Curbside Collections</p>
-              </div>
+          <div className="bg-green-800 p-5 rounded-lg shadow-md mb-4 flex justify-between items-center">
+            <div className="flex-1">
+              <h2 className="text-xl font-semibold text-green-300 mb-2">User Information</h2>
+              <p className="text-green-100">Name: {name || 'N/A'}</p>
+              <p className="text-green-100">User ID: {userId || 'N/A'} | Truck ID: {truckId || 'N/A'}</p>
             </div>
+            <div className="flex-1 text-center">
+              <h2 className="text-xl font-semibold text-green-300 mb-2">Service Details</h2>
+              <p className="text-green-100">Location: Cambridge, Massachusetts</p>
+              <p className="text-green-100">Garbage Service: Curbside Collections</p>
+            </div>
+            <div className="flex-1">
+              <iframe 
+                style={{borderRadius: '12px'}} 
+                src="https://open.spotify.com/embed/track/1xmvq1fYLs9TEgikaFilGW?utm_source=generator" 
+                width="93%" 
+                height="80" 
+                frameBorder="0" 
+                allowFullScreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy"
+              ></iframe>
+            </div>
+
+            <div className="flex-1">
+              <iframe 
+                style={{borderRadius: '12px'}} 
+                src="https://open.spotify.com/embed/episode/0uhXDiAvS02dzbpKSL6mLd?utm_source=generator" 
+                width="103%" 
+                height="80" 
+                frameBorder="0" 
+                allowFullScreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy"
+              ></iframe>
+            </div>
+
+
           </div>
+          {error && (
+            <div className="bg-red-600 text-white p-4 rounded-lg shadow-md mb-4">
+              <h2 className="text-xl font-semibold mb-2">Error</h2>
+              <p>{error}</p>
+            </div>
+          )}
           <div className="flex gap-8 flex-grow">
             <div className="w-1/3 space-y-4">
               <div className="bg-green-800 p-4 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold text-green-300 mb-2">
-                  {!routeStarted ? "Starting Location" : current.id === 0 ? "Ending Location" : "Current"}
+                  {!routeStarted ? "Starting Location" : current?.id === 0 ? "Ending Location" : "Current"}
                 </h2>
                 {!routeStarted ? (
                   <div>
@@ -341,13 +428,13 @@ export default function MainPage() {
                 <button 
                   onClick={handleStartRoute}
                   className="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-500 transition-colors"
+                  disabled={!routeData}
                 >
                   Start Route
                 </button>
-              ) : current.id === 0 ? (
+              ) : current?.id === 0 ? (
                 <button 
                   onClick={handleEndRoute}
-                
                   className="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-500 transition-colors"
                 >
                   End Route
@@ -367,8 +454,9 @@ export default function MainPage() {
                   </h2>
                   <ul className="space-y-2">
                     {upcoming.map(can => (
-                      <li key={can.id}>
-                        ID: {can.id} - {can.location}
+                      <li key={can.id} className="flex items-center space-x-2">
+                        <MapPin className="h-5 w-5 text-green-300" />
+                        <span>{can.location}</span>
                       </li>
                     ))}
                   </ul>
@@ -379,8 +467,9 @@ export default function MainPage() {
                   <h2 className="text-xl font-semibold text-green-300 mb-2">Completed</h2>
                   <ul className="space-y-2">
                     {completed.map(can => (
-                      <li key={can.id}>
-                        ID: {can.id} - {can.location}
+                      <li key={can.id} className="flex items-center space-x-2">
+                        <MapPin className="h-5 w-5 text-green-300" />
+                        <span>{can.location}</span>
                       </li>
                     ))}
                   </ul>
