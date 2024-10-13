@@ -1,0 +1,233 @@
+{
+    "trashData": [
+        {
+            "days_since_last_picked": 1,
+            "durations": [
+                "1 min",
+                "3 mins",
+                "4 mins",
+                "3 mins",
+                "1 min",
+                "4 mins",
+                "3 mins",
+                "4 mins",
+                "4 mins",
+                "8 mins"
+            ],
+            "fill_level": 1,
+            "id": 1,
+            "latitude": 42.373611,
+            "location": "Harvard Yard, Harvard University",
+            "longitude": -71.109733,
+            "priority": 0,
+            "predicted_priority": 0
+        },
+        {
+            "days_since_last_picked": 2,
+            "durations": [
+                "4 mins",
+                "1 min",
+                "4 mins",
+                "5 mins",
+                "4 mins",
+                "5 mins",
+                "1 min",
+                "6 mins",
+                "5 mins",
+                "8 mins"
+            ],
+            "fill_level": 4,
+            "id": 2,
+            "latitude": 42.371654,
+            "location": "Harvard Square, Cambridge",
+            "longitude": -71.113823,
+            "priority": 1,
+            "predicted_priority": 1
+        },
+        {
+            "days_since_last_picked": 3,
+            "durations": [
+                "5 mins",
+                "2 mins",
+                "1 min",
+                "5 mins",
+                "4 mins",
+                "4 mins",
+                "3 mins",
+                "7 mins",
+                "6 mins",
+                "9 mins"
+            ],
+            "fill_level": 2,
+            "id": 3,
+            "latitude": 42.369262,
+            "location": "Harvard Art Museums, Cambridge",
+            "longitude": -71.114005,
+            "priority": 0,
+            "predicted_priority": 0
+        },
+        {
+            "days_since_last_picked": 4,
+            "durations": [
+                "5 mins",
+                "4 mins",
+                "3 mins",
+                "1 min",
+                "3 mins",
+                "2 mins",
+                "4 mins",
+                "5 mins",
+                "7 mins",
+                "11 mins"
+            ],
+            "fill_level": 4,
+            "id": 4,
+            "latitude": 42.366978,
+            "location": "Harvard Business School",
+            "longitude": -71.105488,
+            "priority": 1,
+            "predicted_priority": 1
+        },
+        {
+            "days_since_last_picked": 7,
+            "durations": [
+                "1 min",
+                "4 mins",
+                "5 mins",
+                "5 mins",
+                "1 min",
+                "5 mins",
+                "4 mins",
+                "3 mins",
+                "4 mins",
+                "7 mins"
+            ],
+            "fill_level": 1,
+            "id": 5,
+            "latitude": 42.372862,
+            "location": "Memorial Hall, Harvard University",
+            "longitude": -71.108658,
+            "priority": 1,
+            "predicted_priority": 1
+        },
+        {
+            "days_since_last_picked": 5,
+            "durations": [
+                "3 mins",
+                "3 mins",
+                "4 mins",
+                "2 mins",
+                "2 mins",
+                "1 min",
+                "3 mins",
+                "4 mins",
+                "5 mins",
+                "9 mins"
+            ],
+            "fill_level": 0,
+            "id": 6,
+            "latitude": 42.369561,
+            "location": "Harvard Kennedy School",
+            "longitude": -71.106216,
+            "priority": 0,
+            "predicted_priority": 0
+        },
+        {
+            "days_since_last_picked": 1,
+            "durations": [
+                "5 mins",
+                "4 mins",
+                "4 mins",
+                "7 mins",
+                "5 mins",
+                "6 mins",
+                "1 min",
+                "7 mins",
+                "5 mins",
+                "7 mins"
+            ],
+            "fill_level": 5,
+            "id": 7,
+            "latitude": 42.373056,
+            "location": "Cambridge Common Park",
+            "longitude": -71.116757,
+            "priority": 1,
+            "predicted_priority": 1
+        },
+        {
+            "days_since_last_picked": 3,
+            "durations": [
+                "1 min",
+                "4 mins",
+                "4 mins",
+                "4 mins",
+                "2 mins",
+                "4 mins",
+                "4 mins",
+                "1 min",
+                "3 mins",
+                "7 mins"
+            ],
+            "fill_level": 3,
+            "id": 8,
+            "latitude": 42.375099,
+            "location": "Science Center Plaza, Cambridge",
+            "longitude": -71.105615,
+            "priority": 1,
+            "predicted_priority": 1
+        },
+        {
+            "days_since_last_picked": 2,
+            "durations": [
+                "3 mins",
+                "4 mins",
+                "7 mins",
+                "6 mins",
+                "4 mins",
+                "7 mins",
+                "4 mins",
+                "5 mins",
+                "1 min",
+                "4 mins"
+            ],
+            "fill_level": 4,
+            "id": 9,
+            "latitude": 42.377003,
+            "location": "John F. Kennedy Park, Cambridge",
+            "longitude": -71.115906,
+            "priority": 1,
+            "predicted_priority": 1
+        },
+        {
+            "days_since_last_picked": 6,
+            "durations": [
+                "5 mins",
+                "6 mins",
+                "8 mins",
+                "8 mins",
+                "5 mins",
+                "8 mins",
+                "5 mins",
+                "7 mins",
+                "5 mins",
+                "1 min"
+            ],
+            "fill_level": 2,
+            "id": 10,
+            "latitude": 42.378297,
+            "location": "Charles River near Eliot Bridge",
+            "longitude": -71.120493,
+            "priority": 1,
+            "predicted_priority": 1
+        }
+    ],
+    "route": [
+        2,
+        7,
+        5,
+        8,
+        9,
+        10,
+        4
+    ]
+}

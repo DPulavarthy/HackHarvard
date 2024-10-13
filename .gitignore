@@ -1,4 +1,6 @@
 .env*
+node_modules
+.venv
 
 # Logs
 logs

@@ -1,0 +1,202 @@
+[
+    {
+        "id": 1,
+        "latitude": 42.373611,
+        "longitude": -71.109733,
+        "location": "Harvard Yard, Harvard University",
+        "fill_level": 1,
+        "durations": [
+            "1 min",
+            "3 mins",
+            "4 mins",
+            "3 mins",
+            "1 min",
+            "4 mins",
+            "3 mins",
+            "4 mins",
+            "4 mins",
+            "8 mins"
+        ],
+        "days_since_last_picked": 1
+    },
+    {
+        "id": 2,
+        "latitude": 42.371654,
+        "longitude": -71.113823,
+        "location": "Harvard Square, Cambridge",
+        "fill_level": 4,
+        "durations": [
+            "4 mins",
+            "1 min",
+            "4 mins",
+            "5 mins",
+            "4 mins",
+            "5 mins",
+            "1 min",
+            "6 mins",
+            "5 mins",
+            "8 mins"
+        ],
+        "days_since_last_picked": 2
+    },
+    {
+        "id": 3,
+        "latitude": 42.369262,
+        "longitude": -71.114005,
+        "location": "Harvard Art Museums, Cambridge",
+        "fill_level": 2,
+        "durations": [
+            "5 mins",
+            "2 mins",
+            "1 min",
+            "5 mins",
+            "4 mins",
+            "4 mins",
+            "3 mins",
+            "7 mins",
+            "6 mins",
+            "9 mins"
+        ],
+        "days_since_last_picked": 3
+    },
+    {
+        "id": 4,
+        "latitude": 42.366978,
+        "longitude": -71.105488,
+        "location": "Harvard Business School",
+        "fill_level": 4,
+        "durations": [
+            "5 mins",
+            "4 mins",
+            "3 mins",
+            "1 min",
+            "3 mins",
+            "2 mins",
+            "4 mins",
+            "5 mins",
+            "7 mins",
+            "11 mins"
+        ],
+        "days_since_last_picked": 4
+    },
+    {
+        "id": 5,
+        "latitude": 42.372862,
+        "longitude": -71.108658,
+        "location": "Memorial Hall, Harvard University",
+        "fill_level": 1,
+        "durations": [
+            "1 min",
+            "4 mins",
+            "5 mins",
+            "5 mins",
+            "1 min",
+            "5 mins",
+            "4 mins",
+            "3 mins",
+            "4 mins",
+            "7 mins"
+        ],
+        "days_since_last_picked": 7
+    },
+    {
+        "id": 6,
+        "latitude": 42.369561,
+        "longitude": -71.106216,
+        "location": "Harvard Kennedy School",
+        "fill_level": 0,
+        "durations": [
+            "3 mins",
+            "3 mins",
+            "4 mins",
+            "2 mins",
+            "2 mins",
+            "1 min",
+            "3 mins",
+            "4 mins",
+            "5 mins",
+            "9 mins"
+        ],
+        "days_since_last_picked": 5
+    },
+    {
+        "id": 7,
+        "latitude": 42.373056,
+        "longitude": -71.116757,
+        "location": "Cambridge Common Park",
+        "fill_level": 5,
+        "durations": [
+            "5 mins",
+            "4 mins",
+            "4 mins",
+            "7 mins",
+            "5 mins",
+            "6 mins",
+            "1 min",
+            "7 mins",
+            "5 mins",
+            "7 mins"
+        ],
+        "days_since_last_picked": 1
+    },
+    {
+        "id": 8,
+        "latitude": 42.375099,
+        "longitude": -71.105615,
+        "location": "Science Center Plaza, Cambridge",
+        "fill_level": 3,
+        "durations": [
+            "1 min",
+            "4 mins",
+            "4 mins",
+            "4 mins",
+            "2 mins",
+            "4 mins",
+            "4 mins",
+            "1 min",
+            "3 mins",
+            "7 mins"
+        ],
+        "days_since_last_picked": 3
+    },
+    {
+        "id": 9,
+        "latitude": 42.377003,
+        "longitude": -71.115906,
+        "location": "John F. Kennedy Park, Cambridge",
+        "fill_level": 4,
+        "durations": [
+            "3 mins",
+            "4 mins",
+            "7 mins",
+            "6 mins",
+            "4 mins",
+            "7 mins",
+            "4 mins",
+            "5 mins",
+            "1 min",
+            "4 mins"
+        ],
+        "days_since_last_picked": 2
+    },
+    {
+        "id": 10,
+        "latitude": 42.378297,
+        "longitude": -71.120493,
+        "location": "Charles River near Eliot Bridge",
+        "fill_level": 2,
+        "durations": [
+            "5 mins",
+            "6 mins",
+            "8 mins",
+            "8 mins",
+            "5 mins",
+            "8 mins",
+            "5 mins",
+            "7 mins",
+            "5 mins",
+            "1 min"
+        ],
+        "days_since_last_picked": 6
+    }
+]
