@@ -45,10 +45,10 @@ if __name__ == "__main__":
                 if (elem is not None):
                     avg += elem
 
-                    avg /= len(list(filter(None, levels)))
-                    print("avreage is " + str(avg))
-                    avg = get_level(avg)
-                    levels = []
+            avg /= len(list(filter(None, levels)))
+            print("avreage is " + str(avg))
+            avg = get_level(avg)
+            levels = []
 
             print(avg)
             response = requests.get(url+str(avg))  
@@ -68,6 +68,10 @@ if __name__ == "__main__":
 
             print("Getting percent filled")
             percent = get_percent_filled() #pass in debug value
+
+            
+            if (percent < 2) :
+                percent = 2
         
             levels.append(percent)
             time.sleep(1)
