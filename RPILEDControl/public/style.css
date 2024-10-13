@@ -1,0 +1,258 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap");
+
+:root {
+    --font: 15px "Ubuntu", system-ui;
+    --main: #a7af62;
+    --color: #c0c0c0;
+    --lvlup: #1c1e26;
+    --background: #101010;
+    --red: #f04747;
+    --blue: #00a9ff;
+    --grey: #636b75;
+    --green: #43b581;
+    --yellow: #faa61a;
+}
+
+body {
+    margin: 0;
+    font: var(--font);
+    color: var(--color);
+    background: var(--background);
+    height: 100%;
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: 600;
+    margin: 15px 0;
+    text-align: center;
+    color: var(--grey);
+}
+
+hr {
+    width: 80%;
+    margin: 10px auto;
+    border: none;
+    height: 1px;
+    background: var(--main);
+}
+
+section {
+    width: 80%;
+    margin: auto auto 10px auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+section > div {
+    height: 300px;
+    width: 300px;
+    background: var(--lvlup);
+    margin: 10px;
+    border-radius: 5px;
+    filter: drop-shadow(0 0 2px black);
+    transition-duration: 200ms;
+    cursor: pointer;
+    user-select: none;
+}
+
+h2 {
+    text-align: center;
+    color: var(--main);
+}
+
+svg {
+    width: 50px;
+    margin: 0 125px;
+}
+
+svg path {
+    transition-duration: 200ms;
+}
+
+.disabled path[glow],
+path[glow] {
+    fill: var(--lvlup);
+}
+
+.disabled path[light],
+path[light] {
+    fill: var(--grey);
+}
+
+.disabled [disabled] {
+    fill: var(--red);
+}
+
+.disabled [overlay] {
+    fill: var(--lvlup);
+}
+
+svg path[frame] {
+    fill: black;
+}
+
+[disabled],
+[overlay],
+.red [disabled],
+.red [overlay],
+.green [disabled],
+.green [overlay],
+.yellow [disabled],
+.yellow [overlay],
+.blue [disabled],
+.blue [overlay],
+.white [disabled],
+.white [overlay] {
+    fill: transparent;
+}
+
+.red path[light] {
+    fill: var(--red);
+}
+
+.green path[light] {
+    fill: var(--green);
+}
+
+.yellow path[light] {
+    fill: var(--yellow);
+}
+
+.blue path[light] {
+    fill: var(--blue);
+}
+
+.white path[light] {
+    fill: var(--color);
+}
+
+.red path[glow],
+.green path[glow],
+.yellow path[glow],
+.blue path[glow],
+.white path[glow] {
+    fill: var(--yellow);
+}
+
+section > div p {
+    margin: 10px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--grey);
+    font-weight: 500;
+    user-select: none;
+}
+
+section > div > div {
+    margin: 20px 0;
+    text-align: center;
+}
+
+section > div:hover {
+    transition-delay: 50ms;
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 10px black);
+}
+
+section > div.hide {
+    transform: scale(1);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+section > div:hover > svg {
+    transition-delay: 50ms;
+    transition-duration: 200ms;
+    transform: scale(1.2);
+}
+
+div[preload] {
+    width: 100vw;
+    height: 100vh;
+    background: var(--background);
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition-duration: 300ms;
+}
+
+div[preload] p {
+    font-size: 20px;
+    color: var(--color);
+    font-weight: 500;
+    text-align: center;
+}
+
+div[preload] p b {
+    color: var(--main);
+}
+
+div[preload] div div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div[preload] svg {
+    border-radius: 5px;
+    padding: 10px 20px 20px 20px;
+    background: var(--lvlup);
+}
+
+div[preload] [light] {
+    transition-duration: 300ms;
+}
+
+div[preload].hide [light] {
+    fill: white !important;
+}
+
+div[preload].hide {
+    transition-delay: 700ms;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.disabled p:before {
+    content: "Press to check status";
+}
+
+section > div > p:before {
+    content: "Press to turn on";
+}
+
+section > div > [time]:before {
+    content: "Off for";
+    margin: 0 3px;
+}
+
+section > div > [time]:after {
+    content: ".";
+}
+
+.red p:before,
+.green p:before,
+.yellow p:before,
+.blue p:before,
+.white p:before {
+    content: "Press to turn off";
+}
+
+.red [time]:before,
+.green [time]:before,
+.yellow [time]:before,
+.blue [time]:before,
+.white [time]:before {
+    content: "On for";
+}
+
+.disabled [time]:before {
+    content: "Offline for";
+}
+
