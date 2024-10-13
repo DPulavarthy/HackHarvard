@@ -1,0 +1,86 @@
+[
+    {
+        "gpio": 5,
+        "name": "[1] Red",
+        "type": "red",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 21,
+        "name": "[2] Red",
+        "type": "red",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 6,
+        "name": "[1] Yellow Upper",
+        "type": "yellow",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 20,
+        "name": "[2] Yellow Upper",
+        "type": "yellow",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 13,
+        "name": "[1] Yellow Lower",
+        "type": "yellow",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 16,
+        "name": "[2] Yellow Lower",
+        "type": "yellow",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 19,
+        "name": "[1] Green Upper",
+        "type": "green",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 12,
+        "name": "[2] Green Upper",
+        "type": "green",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 26,
+        "name": "[1] Green Lower",
+        "type": "green",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 25,
+        "name": "[2] Green Lower",
+        "type": "green",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 17,
+        "name": "[1] White Status",
+        "type": "white",
+        "state": 0,
+        "time": 0
+    },
+    {
+        "gpio": 18,
+        "name": "[2] White Status",
+        "type": "white",
+        "state": 0,
+        "time": 0
+    }
+]

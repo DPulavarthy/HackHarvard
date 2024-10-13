@@ -1,0 +1,16 @@
+{
+  "name": "latierra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "onoff": "^6.0.3",
+    "ws": "^8.11.0"
+  }
+}
