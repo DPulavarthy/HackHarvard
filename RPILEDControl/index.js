@@ -1,9 +1,15 @@
 const { execSync } = require('child_process');
 const { Server } = require('ws');
 const express = require('express');
+const get = require('node-fetch');
 const { readFileSync } = require('fs');
 const config = JSON.parse(readFileSync('./config.json', 'utf-8'));
 config.map(light => light.time = Date.now());
+
+const cache = {
+    cam1lvl: 0,
+    cam2lvl: 0
+}
 
 function all(cfg, state, init) {
     for (const light of cfg) {
@@ -47,6 +53,7 @@ express()
         if (![1, 2].includes(id) || level < 0 || level > 5) return res.send('Invalid request');
 
         if (id === 1) {
+            execSync(`sudo pinctrl ${config[10].gpio} op dh`);
 
             [0, 2, 4, 6, 8].map(i => {
                 config[i].state = 0;
@@ -78,6 +85,7 @@ express()
             });
 
         } else {
+            execSync(`sudo pinctrl ${config[11].gpio} op dh`);
 
             [1, 3, 5, 7, 9].map(i => {
                 config[i].state = 0;
@@ -108,6 +116,18 @@ express()
                 execSync(`sudo pinctrl ${config[i].gpio} op ${config[i].state ? 'dh' : 'dl'}`);
             });
 
+        }
+
+        if (id === 1 && cache.cam1lvl !== level) {
+            console.log('Set level', level, 'for cam', id, 'sending to', `http://192.168.124.69:1123/start/1/${level}`);
+            get(`http://192.168.124.69:1123/start/1/${level}`)
+            cache.cam1lvl = level;
+        }
+
+        if (id === 2 && cache.cam2lvl !== level) {
+            console.log('Set level', level, 'for cam', id, 'sending to', `http://192.168.124.69:1123/start/1/${level}`);
+            get(`http://192.168.124.69:1123/start/2/${level}`)
+            cache.cam2lvl = level;
         }
 
         res.send('OK');
