@@ -52,12 +52,3 @@ We learned about the importance of integrating hardware, software, and networks 
 
 ## What's next for CleanSweep
 - **Real-time sensors**: We plan to implement real-time sensors in all bins across the city to fully automate the system, allowing garbage truck drivers to collect trash from the most filled bins first, reducing waste buildup and improving overall efficiency.
-
-## Installation
-1. Clone the Repo: `git clone https://github.com/your-repo-url/cleansweep.git`
-2. Install dependencies:
-    - Backend: Follow [Backend Installment Guide](https://github.com/your-repo-url/backend)
-    - Frontend: Follow [Frontend Installment Guide](https://github.com/your-repo-url/frontend)
-3. Run the backend and frontend:
-   - `npm run dev` for the frontend
-   - `flask run` (or your preferred backend server) for the backend
