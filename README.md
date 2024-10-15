@@ -6,7 +6,9 @@
 </div>
 
 ## Application Demo
-[![Click Here For The Video](https://github.com/user-attachments/assets/246b14be-ca35-43c7-9157-0d859b74b019)](https://youtu.be/iU_6u-RygyQ)
+https://youtu.be/iU_6u-RygyQ
+
+https://github.com/user-attachments/assets/0f2393c9-9ef4-4f08-b809-f02884e8ea5a
 
 ## Built with:
 <div align="center">
