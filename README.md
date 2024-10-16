@@ -6,8 +6,6 @@
 </div>
 
 ## Application Demo
-https://youtu.be/iU_6u-RygyQ
-
 https://github.com/user-attachments/assets/0f2393c9-9ef4-4f08-b809-f02884e8ea5a
 
 ## Built with:
